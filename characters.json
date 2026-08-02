@@ -1,0 +1,33 @@
+[
+  {
+    "code": "K3F9Q",
+    "char": "Nhân vật A",
+    "versions": [
+      { "code": "B8T4R", "note": "" },
+      { "code": "H9K2C", "note": "bản giới hạn" }
+    ],
+    "dates": [
+      { "date": "07-20", "note": "SN" },
+      { "date": "07-02", "note": "Ani" }
+    ]
+  },
+  {
+    "code": "M2X7L",
+    "char": "Nhân vật B",
+    "versions": [
+      { "code": "T4R9K", "note": "" }
+    ],
+    "dates": [
+      { "date": "07-22", "note": "" }
+    ]
+  },
+  {
+    "code": "P5W1D",
+    "char": "Nhân vật C",
+
+    "versions": [],
+    "dates": [
+      { "date": "07-26", "note": "" }
+    ]
+  }
+]

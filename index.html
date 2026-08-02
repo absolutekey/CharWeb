@@ -3,29 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Trang web của tôi</title>
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 
     <!-- Vị trí nhúng Header -->
     <div id="header-placeholder"></div>
-
-    <main>
-        <h2>Nội dung chính của trang</h2>
-        <p>Đây là phần nội dung độc lập trên trang này.</p>
-    </main>
-
-    <!-- Vị trí nhúng Footer -->
+    <div id="content"></div>
     <div id="footer-placeholder"></div>
 
     <!-- Script nhúng nội dung -->
-    <script>
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('header-placeholder').innerHTML = data);
-
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data);
-    </script>
+    <script src="JS/Router/router.js"></script>
 </body>
 </html>

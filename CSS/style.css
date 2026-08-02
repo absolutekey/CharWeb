@@ -1,0 +1,3 @@
+.banner-active, .banner-upcoming { display: none; }
+#content[data-event-status="active"] .banner-active { display: block; }
+#content[data-event-status="upcoming"] .banner-upcoming { display: block; }
