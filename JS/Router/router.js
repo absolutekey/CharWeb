@@ -44,9 +44,8 @@ function toDayOfYear(mmdd) {
     return Math.round((date - start) / 86400000);
 }
 
-function circularDistance(a, b, total = 365) {
-    const diff = Math.abs(a - b);
-    return Math.min(diff, total - diff);
+function circularDistance(from, to, total = 365) {
+    return (to - from + total) % total;
 }
 
 function nearestEvent(item) {
@@ -68,6 +67,17 @@ function nearestEvent(item) {
     });
 
     return { date: closest, isToday: minDist === 0 };
+}
+function executeScripts(container) {
+    const scripts = container.querySelectorAll('script');
+    scripts.forEach(oldScript => {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => 
+            newScript.setAttribute(attr.name, attr.value)
+        );
+        newScript.textContent = oldScript.textContent;
+        oldScript.replaceWith(newScript);
+    });
 }
 
 //render
@@ -91,9 +101,11 @@ function render() {
         .then(res => res.text())
         .then(html => {
             content.innerHTML = html;
+            executeScripts(content); // thêm dòng này
             const result = eventStatus(item);
             applyEventStatus(content, result.status, result.date);
         });
+
 }
 
 
