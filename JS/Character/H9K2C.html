@@ -10,27 +10,75 @@
 <script>
 
     function openGenshin() {
-        const ua = navigator.userAgent || navigator.vendor;
+        const ua = navigator.userAgent;
 
-        const iosUrl = "https://apps.apple.com/app/genshin-impact/id1517783697";
-        const androidPackage = "com.miHoYo.GenshinImpact";
-        const androidStoreUrl = "https://play.google.com/store/apps/details?id=" + androidPackage;
-        const pcUrl = "https://genshin.hoyoverse.com/en/download";
+        const isAndroid = /Android/i.test(ua);
+        const isIOS =
+            /iPad|iPhone|iPod/.test(ua) ||
+            (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-        if (/android/i.test(ua)) {
-            const intentUrl =
-            "intent:#Intent;" +
-            "action=android.intent.action.MAIN;" +
-            "category=android.intent.category.LAUNCHER;" +
-            "package=" + androidPackage + ";" +
-            "S.browser_fallback_url=" + encodeURIComponent(androidStoreUrl) + ";" +
-            "end";
-            window.location.href = intentUrl;
-        } else if (/iPad|iPhone|iPod/.test(ua)) {
-            window.location.href = iosUrl;
-        } else {
-            window.location.href = pcUrl;
+        if (isIOS) {
+            // iOS hiện không có deep link công khai
+            window.location.href =
+                "https://apps.apple.com/app/genshin-impact/id1517783697";
+            return;
         }
+
+        if (!isAndroid) {
+            window.location.href =
+                "https://genshin.hoyoverse.com/en/download";
+            return;
         }
+
+        // Các package phổ biến
+        const packages = [
+            "com.HoYoverse.GenshinImpact",
+            "com.miHoYo.GenshinImpact",
+            "com.miHoYo.Yuanshen"
+        ];
+
+        let opened = false;
+
+        const onHidden = () => {
+            opened = true;
+            document.removeEventListener("visibilitychange", onHidden);
+        };
+
+        document.addEventListener("visibilitychange", onHidden);
+
+        let index = 0;
+
+        function tryNext() {
+
+            if (opened) return;
+
+            if (index >= packages.length) {
+
+                setTimeout(() => {
+                    if (!opened) {
+                        window.location.href =
+                            "https://genshin.hoyoverse.com/en/download";
+                    }
+                }, 500);
+
+                return;
+            }
+
+            const pkg = packages[index++];
+
+            const intent =
+                "intent:#Intent;" +
+                "action=android.intent.action.MAIN;" +
+                "category=android.intent.category.LAUNCHER;" +
+                "package=" + pkg + ";" +
+                "end";
+
+            location.href = intent;
+
+            setTimeout(tryNext, 350);
+        }
+
+        tryNext();
+    }
 
 </script>
