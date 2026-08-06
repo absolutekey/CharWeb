@@ -2,7 +2,7 @@
 let LOOKUP = {};      // code -> object chứa versions/dates gốc
 let ITEM_OF = {};      // code (kể cả version) -> item cha chứa "dates"
 
-fetch('characters.json')
+fetch('Json/characters.json')
     .then(res => res.json())
     .then(data => {
         data.forEach(item => {
@@ -36,6 +36,7 @@ function eventStatus(item) {
     return { status: nearest.isToday ? 'active' : 'upcoming', date: nearest.date };
 }
 
+//nearestEvent
 function toDayOfYear(mmdd) {
     const [m, d] = mmdd.split('-').map(Number);
     const date = new Date(2001, m - 1, d); // năm tham chiếu cố định, không nhuận
@@ -69,13 +70,20 @@ function nearestEvent(item) {
     return { date: closest, isToday: minDist === 0 };
 }
 
+//render
 function render() {
     const key = location.hash.slice(1);
     const content = document.getElementById('content');
     const item = ITEM_OF[key];
 
     if (!item) {
-        content.innerHTML = '<p>Không tìm thấy</p>';
+        fetch(`404.html`)
+            .then(res => res.text())
+            .then(html => {
+                content.innerHTML = html;
+                const result = eventStatus(item);
+                applyEventStatus(content, result.status, result.date);
+        });
         return;
     }
 

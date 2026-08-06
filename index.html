@@ -10,9 +10,36 @@
     <!-- Vị trí nhúng Header -->
     <div id="header-placeholder"></div>
     <div id="content"></div>
+
+    <div id="device-info"></div>
     <div id="footer-placeholder"></div>
 
     <!-- Script nhúng nội dung -->
     <script src="JS/Router/router.js"></script>
+    <script>
+        function getOS() {
+            const ua = navigator.userAgent;
+            if (ua.includes("Windows")) return "Windows";
+            if (ua.includes("Mac OS")) return "macOS";
+            if (ua.includes("Android")) return "Android";
+            if (ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
+            if (ua.includes("Linux")) return "Linux";
+            return "Không xác định";
+        }
+
+        function getBrowser() {
+            const ua = navigator.userAgent;
+            if (ua.includes("Edg/")) return "Edge";
+            if (ua.includes("Chrome/") && !ua.includes("Edg/")) return "Chrome";
+            if (ua.includes("Firefox/")) return "Firefox";
+            if (ua.includes("Safari/") && !ua.includes("Chrome/")) return "Safari";
+            return "Không xác định";
+        }
+
+        const el = document.getElementById('device-info');
+        if (el) {
+            el.innerText = `Hệ điều hành: ${getOS()} | Trình duyệt: ${getBrowser()}`;
+        }
+    </script>
 </body>
 </html>
