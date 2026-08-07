@@ -1,33 +1,86 @@
 [
   {
-    "code": "K3F9Q",
-    "char": "Columbina",
-    "versions": [
-      { "code": "B8T4R", "note": "" },
-      { "code": "H9K2C", "note": "bản giới hạn" }
-    ],
-    "dates": [
-      { "date": "01-14", "note": "SN" },
-      { "date": "07-11", "note": "First" }
-    ]
-  },
-  {
-    "code": "M2X7L",
-    "char": "Nhân vật B",
-    "versions": [
-      { "code": "T4R9K", "note": "" }
-    ],
-    "dates": [
-      { "date": "07-22", "note": "" }
-    ]
-  },
-  {
-    "code": "P5W1D",
-    "char": "Nhân vật C",
+    "id": "K3F9Q",
 
-    "versions": [],
+    "basic": {
+      "name": "Columbina"
+    },
+
+    "versions": [
+      {
+        "id": "B8T4R",
+        "note": ""
+      },
+      {
+        "id": "H9K2C",
+        "note": "bản giới hạn"
+      }
+    ],
+
+    "assets": "Columbina/Assets/",
+
     "dates": [
-      { "date": "07-26", "note": "" }
-    ]
+      {
+        "date": "01-14",
+        "note": "SN"
+      },
+      {
+        "date": "07-11",
+        "note": "First"
+      },
+      {
+        "date": "12-25",
+        "note": "Christmas"
+      }
+    ],
+
+    "audio": "Columbina/audio/",
+
+    "effects": "Columbina/effects/",
+
+    "game": {
+      "type": "genshin",
+      "scheme": "genshin://auth"
+    }
+  },
+  {
+    "id": "12345",
+
+    "basic": {
+      "name": "A"
+    },
+
+    "versions": [
+      {
+        "id": "13y14",
+        "note": ""
+      },
+      {
+        "id": "14y13",
+        "note": "bản giới hạn"
+      }
+    ],
+
+    "assets": "assets/",
+
+    "dates": [
+      {
+        "date": "01-14",
+        "note": "SN"
+      },
+      {
+        "date": "07-11",
+        "note": "First"
+      }
+    ],
+
+    "audio": "audio/",
+
+    "effects": "effects/",
+
+    "game": {
+      "type": "genshin",
+      "scheme": "genshin://auth"
+    }
   }
 ]

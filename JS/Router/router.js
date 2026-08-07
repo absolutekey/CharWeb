@@ -1,32 +1,87 @@
 // router.js
-let LOOKUP = {};      // code -> object chứa versions/dates gốc
-let ITEM_OF = {};      // code (kể cả version) -> item cha chứa "dates"
+let LOOKUP = {};      // id -> object chứa versions/dates gốc
+let ITEM_OF = {};      // id (kể cả version) -> item cha chứa "dates"
 
 fetch('Json/characters.json')
     .then(res => res.json())
     .then(data => {
         data.forEach(item => {
-            LOOKUP[item.code] = item;
-            ITEM_OF[item.code] = item;
-            item.versions.forEach(v => ITEM_OF[v.code] = item);
+            LOOKUP[item.id] = item;
+            ITEM_OF[item.id] = item;
+
+            item.versions.forEach(v => {
+                ITEM_OF[v.id] = item;
+            });
         });
         render();
     });
 
-function applyEventStatus(container, status, dateInfo) {
+function applyCharacterData(container, item, key) {
+    // =========================
+    // EVENT / DATE
+    // =========================
+    const event = eventStatus(item);
+
     const active = container.querySelector('.banner-active');
     const upcoming = container.querySelector('.banner-upcoming');
 
     if (active) {
-        active.style.display = (status === 'active') ? 'block' : 'none';
+        active.style.display = event.status === 'active' ? 'block' : 'none';
+
         const span = active.querySelector('.event-date');
-        if (span && dateInfo) span.textContent = `(${dateInfo.date}${dateInfo.note ? ' - ' + dateInfo.note : ''})`;
+        if (span && event.date) {
+            span.textContent =
+                `(${event.date.date}${event.date.note ? ' - ' + event.date.note : ''})`;
+        }
     }
 
     if (upcoming) {
-        upcoming.style.display = (status === 'upcoming') ? 'block' : 'none';
+        upcoming.style.display = event.status === 'upcoming' ? 'block' : 'none';
+
         const span = upcoming.querySelector('.event-date');
-        if (span && dateInfo) span.textContent = `(${dateInfo.date}${dateInfo.note ? ' - ' + dateInfo.note : ''})`;
+        if (span && event.date) {
+            span.textContent =
+                `(${event.date.date}${event.date.note ? ' - ' + event.date.note : ''})`;
+        }
+    }
+
+
+     // =========================
+    // OPEN GAME
+    // =========================
+    const opengamebtn = container.querySelector('.opengame');
+
+    console.log('OpenGame:', opengamebtn);
+    console.log('Scheme:', item.game?.scheme);
+
+    if (opengamebtn) {
+        opengamebtn.addEventListener('click', () => {
+            const scheme = item.game.scheme.trim();
+
+            console.log('scheme:', JSON.stringify(scheme));
+
+            location.href = scheme;
+        });
+    }
+
+
+    // =========================
+    // BASIC DATA
+    // =========================
+    const name = container.querySelector('.CharacterName');
+
+    if (name) {
+        name.textContent = item.basic.name;
+    }
+
+
+    // =========================
+    // CURRENT VERSION
+    // =========================
+    const version = container.querySelector('.CharacterVersion');
+
+    if (version) {
+        version.textContent = key;
     }
 }
 
@@ -80,33 +135,33 @@ function executeScripts(container) {
     });
 }
 
-//render
 function render() {
     const key = location.hash.slice(1);
     const content = document.getElementById('content');
     const item = ITEM_OF[key];
 
+    console.log('Rendering key:', key);
+
     if (!item) {
-        fetch(`404.html`)
+        fetch('404.html')
             .then(res => res.text())
             .then(html => {
                 content.innerHTML = html;
-                const result = eventStatus(item);
-                applyEventStatus(content, result.status, result.date);
-        });
+                executeScripts(content);
+            });
         return;
     }
 
-    fetch(`JS/Character/${key}.html`)
+    fetch(`JS/Character/${item.basic.name}/${key}.html`)
         .then(res => res.text())
         .then(html => {
             content.innerHTML = html;
-            executeScripts(content); // thêm dòng này
-            const result = eventStatus(item);
-            applyEventStatus(content, result.status, result.date);
-        });
+            executeScripts(content);
 
+            applyCharacterData(content, item, key);
+        });
 }
+
 
 
 window.addEventListener('hashchange', render);
