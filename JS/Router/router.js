@@ -55,13 +55,15 @@ function applyCharacterData(container, item, key) {
     console.log('Scheme:', item.game?.scheme);
 
     if (opengamebtn) {
-        opengamebtn.addEventListener('click', () => {
-            const scheme = item.game.scheme.trim();
+        if (item.game && item.game.scheme) {
+            opengamebtn.addEventListener('click', () => {
+                const scheme = item.game.scheme.trim();
 
-            console.log('scheme:', JSON.stringify(scheme));
+                console.log('scheme:', JSON.stringify(scheme));
 
-            location.href = scheme;
-        });
+                location.href = scheme;
+            });
+        }
     }
 
 
@@ -83,6 +85,13 @@ function applyCharacterData(container, item, key) {
     if (version) {
         version.textContent = key;
     }
+}
+
+function resolveCharacterAssets(html, key) {
+    const assetsPath =
+        `JS/Character/${key.basic.name}/${key.assets}/`;
+
+    return html.replaceAll("{{A}}", assetsPath);
 }
 
 function eventStatus(item) {
@@ -123,6 +132,7 @@ function nearestEvent(item) {
 
     return { date: closest, isToday: minDist === 0 };
 }
+
 function executeScripts(container) {
     const scripts = container.querySelectorAll('script');
     scripts.forEach(oldScript => {
@@ -153,13 +163,14 @@ function render() {
     }
 
     fetch(`JS/Character/${item.basic.name}/${key}.html`)
-        .then(res => res.text())
-        .then(html => {
-            content.innerHTML = html;
-            executeScripts(content);
-
-            applyCharacterData(content, item, key);
-        });
+    .then(res => res.text())
+    .then(html => {
+        // Resolve đường dẫn assets trước khi đưa HTML vào DOM
+        html = resolveCharacterAssets(html, item);
+        content.innerHTML = html;
+        executeScripts(content);
+        applyCharacterData(content, item, key);
+    });
 }
 
 

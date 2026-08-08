@@ -1,0 +1,464 @@
+<h1 class="CharacterName"></h1>
+<div class="banner-active">Đang có sự kiện 
+    <span class="event-date"></span>
+</div>
+<div class="banner-upcoming">Sắp diễn ra 
+    <span class="event-date"></span>
+</div>
+
+<!-- Default section (shows on regular days) -->
+<div class="date-section default-section" data-date="default">
+    <div class="layout-rieng-cho-nhan-vat-nay">
+        <!-- Khu vực chính để thêm hình ảnh/animation nhân vật -->
+        <div class="character-display-placeholder">
+            <!-- Thêm hình ảnh, animation hoặc nội dung chính ở đây -->
+            <div class="image-animation-container">
+                <img src="{{A}}Character_Hu_Tao_Full_Wish.webp" alt="Hu Tao" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px;">
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+<!-- Special section for SN (07-15) -->
+<div class="date-section sn-section" data-date="07-15" style="display: none;">
+    <div class="layout-rieng-cho-nhan-vat-nay">
+        <!-- Khu vực chính để thêm hình ảnh/animation nhân vật cho ngày SN -->
+        <div class="character-display-placeholder">
+            <!-- Thêm hình ảnh, animation hoặc nội dung chính cho ngày SN ở đây -->
+            <div class="image-animation-container">
+                <!-- Nội dung ngày SN sẽ được đặt ở đây -->
+                <div class="date-content">
+                    <div class="image-slider" data-folder="{{A}}Event_SN_Hu_Tao/"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Special section for First Banner (03-02) -->
+<div class="date-section first-banner-section" data-date="03-02" style="display: none;">
+    <div class="layout-rieng-cho-nhan-vat-nay">
+        <!-- Khu vực chính để thêm hình ảnh/animation nhân vật cho ngày First Banner -->
+        <div class="character-display-placeholder">
+            <!-- Thêm hình ảnh, animation hoặc nội dung chính cho ngày First Banner ở đây -->
+            <div class="image-animation-container">
+                <!-- Nội dung ngày First Banner sẽ được đặt ở đây -->
+                <div class="date-content">
+                </div>
+            </div>
+        </div>
+
+        <!-- Khu vực phụ để thêm thông tin bổ sung cho ngày First Banner -->
+        <div class="info-placeholder">
+            <!-- Thêm thông tin Additional cho ngày First Banner ở đây -->
+            <div class="additional-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="opengame"></button>
+
+<style>
+    :root {
+        --hutao-red: #c9483a;
+        --hutao-dark: #1a1210;
+        --hutao-gold: #e8c170;
+        --hutao-cream: #f5e6d3;
+        --hutao-shadow: rgba(26, 18, 16, 0.35);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ===== MOBILE-FIRST BASE STYLES (optimized for phones) ===== */
+    body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        color: var(--hutao-cream);
+        min-height: 100vh;
+        padding: 15px; /* Mobile-optimized padding */
+        margin: 0;
+        min-height: 100%;
+        position: relative;
+        background: var(--hutao-dark);
+    }
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+
+        background-image: url("{{A}}Namecard_Background_Hu_Tao_Spirit_Soother.webp");
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+
+        z-index: -2;
+        pointer-events: none;
+    }
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+
+        background: rgba(0, 0, 0, 0.35);
+
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    h1.CharacterName {
+        text-align: center;
+        margin-bottom: 16px;
+        font-size: 1.5rem; /* Mobile-optimized size */
+        letter-spacing: 0.05em;
+        color: var(--hutao-gold);
+        text-shadow: 0 2px 4px var(--hutao-shadow);
+    }
+
+    .banner-active, .banner-upcoming {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 8px 0;
+        padding: 10px 16px; /* Mobile-optimized padding */
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.9rem; /* Mobile-optimized size */
+        min-height: 36px;
+    }
+
+    .banner-active {
+        background: linear-gradient(90deg, #8b1e1e, var(--hutao-red));
+        border: 1px solid var(--hutao-gold);
+        color: var(--hutao-cream);
+    }
+
+    .banner-upcoming {
+        background: linear-gradient(90deg, #3d2a24, #5c3d35);
+        border: 1px solid rgba(232, 193, 112, 0.45);
+        color: var(--hutao-cream);
+    }
+
+    .banner-active span.event-date,
+    .banner-upcoming span.event-date {
+        margin-left: 8px;
+        font-weight: normal;
+        opacity: 0.9;
+    }
+
+    .layout-rieng-cho-nhan-vat-nay {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .character-display-placeholder,
+    .info-placeholder {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(232, 193, 112, 0.15);
+        border-radius: 16px;
+        padding: 16px; /* Mobile-optimized padding */
+        min-height: 160px; /* Mobile-optimized height */
+        position: relative;
+        overflow: hidden;
+    }
+
+    .character-display-placeholder::before,
+    .info-placeholder::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+            radial-gradient(circle at 20% 30%, rgba(232, 193, 112, 0.1), transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(201, 72, 58, 0.08), transparent 50%);
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    .image-animation-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(245, 230, 211, 0.5);
+        font-style: italic;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .additional-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(245, 230, 211, 0.5);
+        font-style: italic;
+        text-align: center;
+        padding: 20px;
+        line-height: 1.6;
+    }
+
+    /* ===== Event SN STYLES ===== */
+    .image-slider {
+    width: 300px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    }
+
+    .slider-track {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform .7s ease;
+    }
+
+    .slider-track img {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    button.opengame {
+        display: block;
+        width: 100%;
+        max-width: 280px; /* Slightly reduced for mobile */
+        margin: 24px auto 0;
+        padding: 14px 20px; /* Mobile-optimized padding */
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem; /* Mobile-optimized size */
+        font-weight: 700;
+        cursor: pointer;
+        color: var(--hutao-dark);
+        background: linear-gradient(180deg, var(--hutao-gold), #c9a24a);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        transition: all 0.2s ease;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    button.opengame:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(180deg, #d9b25a, #e8c170);
+    }
+
+    button.opengame:active {
+        transform: translateY(0);
+    }
+    
+
+    /* ===== ENHANCEMENTS FOR LARGER SCREENS (tablets, desktop) ===== */
+    @media (min-width: 481px) {
+        body {
+            padding: 20px; /* Enhanced padding for larger screens */
+        }
+
+        h1.CharacterName {
+            margin-bottom: 20px;
+            font-size: 2rem; /* Enhanced size */
+        }
+
+        .banner-active, .banner-upcoming {
+            margin: 10px 0;
+            padding: 12px 20px; /* Enhanced padding */
+            font-size: 1rem; /* Enhanced size */
+        }
+
+        .banner-active span.event-date,
+        .banner-upcoming span.event-date {
+            margin-left: 10px;
+        }
+
+        .layout-rieng-cho-nhan-vat-nay {
+            gap: 20px;
+            max-width: 800px; /* Constrain width on larger screens */
+        }
+
+        .character-display-placeholder,
+        .info-placeholder {
+            padding: 20px; /* Enhanced padding */
+            min-height: 200px; /* Enhanced height */
+        }
+
+        button.opengame {
+            max-width: 300px; /* Restore original max-width */
+            margin: 30px auto 0;
+            padding: 16px 24px; /* Enhanced padding */
+            font-size: 1.1rem; /* Enhanced size */
+        }
+    }
+
+    /* ===== FURTHER ENHANCEMENTS FOR DESKTOP ===== */
+    @media (min-width: 1024px) {
+        body {
+            padding: 30px; /* Desktop padding */
+        }
+
+        h1.CharacterName {
+            margin-bottom: 24px;
+        }
+
+        .banner-active, .banner-upcoming {
+            margin: 12px 0;
+            padding: 14px 24px;
+        }
+
+        .layout-rieng-cho-nhan-vat-nay {
+            gap: 24px;
+        }
+
+        .character-display-placeholder,
+        .info-placeholder {
+            padding: 24px;
+            min-height: 220px;
+        }
+
+        button.opengame {
+            margin: 36px auto 0;
+            padding: 18px 28px;
+        }
+    }
+</style>
+
+<script>
+    // Function to show the appropriate date section based on today's date
+    console.log('[HUTAO HTML] SCRIPT ĐÃ ĐƯỢC LOAD');
+    function showDateSection() {
+        const today = new Date();
+
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const todayMD = `${month}-${day}`;
+
+        console.log('[DATE] Hôm nay:', todayMD);
+
+        const dateSections = document.querySelectorAll('.date-section');
+
+        console.log('[DATE] Số section:', dateSections.length);
+
+        // Ẩn TẤT CẢ section trước
+        dateSections.forEach(section => {
+            section.style.setProperty('display', 'none', 'important');
+        });
+
+        // Tìm event của hôm nay
+        const matchedSection = document.querySelector(
+            `.date-section[data-date="${todayMD}"]`
+        );
+
+        console.log('[DATE] Section hôm nay:', matchedSection);
+
+        if (matchedSection) {
+
+            // Có event -> hiện event
+            matchedSection.style.setProperty('display', 'block', 'important');
+
+            console.log('[EVENT] Đã kích hoạt:', todayMD);
+
+            // Kiểm tra Default thực tế
+            const defaultSection = document.querySelector(
+                '.date-section[data-date="default"]'
+            );
+
+            if (defaultSection) {
+                console.log(
+                    '[DEFAULT] display sau khi ẩn:',
+                    getComputedStyle(defaultSection).display
+                );
+            }
+
+            return;
+        }
+
+        // Không có event -> hiện Default
+        const defaultSection = document.querySelector(
+            '.date-section[data-date="default"]'
+        );
+
+        if (defaultSection) {
+            defaultSection.style.setProperty('display', 'block', 'important');
+
+            console.log('[DEFAULT] Không có event, hiện Default');
+        }
+    }
+
+    async function eventSN() {
+        const slider = document.querySelector(".sn-section .image-slider");
+        if (!slider) return;
+
+        const folder = slider.dataset.folder;
+
+        const res = await fetch(folder);
+        const html = await res.text();
+
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const images = [...doc.querySelectorAll("a")]
+            .map(a => a.getAttribute("href"))
+            .filter(src => /\.(jpg|jpeg|png|webp|gif)$/i.test(src));
+
+        if (!images.length) return;
+
+        slider.innerHTML = `
+            <div class="slider-track">
+                ${images.map(src => `
+                    <img src="${folder}${src}">
+                `).join("")}
+
+                <img src="${folder}${images[0]}">
+            </div>
+        `;
+
+        const track = slider.querySelector(".slider-track");
+
+        let index = 0;
+
+        function next() {
+            index++;
+            track.style.transition = "transform .7s ease";
+            track.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        track.addEventListener("transitionend", () => {
+            if (index === images.length) {
+                track.style.transition = "none";
+                index = 0;
+                track.style.transform = "translateX(0)";
+            }
+        });
+
+        setInterval(next, 3000);
+    }
+    // Run the function when the page loads
+    (async () => {
+        showDateSection();
+        eventSN();
+    })();
+
+    // Also run it when the date might have changed (e.g., if page is left open overnight)
+    // This checks once per minute if we're at a new day
+    setInterval(() => {
+        const now = new Date();
+        // Only check at midnight to avoid unnecessary checks
+        if (now.getHours() === 0 && now.getMinutes() < 1) {
+            showDateSection();
+            // Also update banners at midnight
+            loadCharacterData();
+        }
+    }, 60000); // Check every minute
+</script>

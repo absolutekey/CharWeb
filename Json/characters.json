@@ -17,7 +17,7 @@
       }
     ],
 
-    "assets": "Columbina/Assets/",
+    "assets": "assets",
 
     "dates": [
       {
@@ -34,9 +34,9 @@
       }
     ],
 
-    "audio": "Columbina/audio/",
+    "audio": "audio",
 
-    "effects": "Columbina/effects/",
+    "effects": "effects",
 
     "game": {
       "type": "genshin",
@@ -44,39 +44,35 @@
     }
   },
   {
-    "id": "12345",
+    "id": "SGNJO",
 
     "basic": {
-      "name": "A"
+      "name": "Hutao"
     },
 
     "versions": [
       {
-        "id": "13y14",
+        "id": "SGNJO",
         "note": ""
-      },
-      {
-        "id": "14y13",
-        "note": "bản giới hạn"
       }
     ],
 
-    "assets": "assets/",
+    "assets": "assets",
 
     "dates": [
       {
-        "date": "01-14",
+        "date": "07-15",
         "note": "SN"
       },
       {
-        "date": "07-11",
-        "note": "First"
+        "date": "03-02",
+        "note": "First Banner"
       }
     ],
 
-    "audio": "audio/",
+    "audio": "audio",
 
-    "effects": "effects/",
+    "effects": "effects",
 
     "game": {
       "type": "genshin",
